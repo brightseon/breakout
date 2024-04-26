@@ -1,4 +1,5 @@
 const canvas = document.getElementById('canvas');
+const startButton = document.getElementById('start');
 const ctx = canvas.getContext('2d');
 
 let x = canvas.width / 2;
@@ -21,4 +22,11 @@ function draw() {
     y += dy;
 }
 
-setInterval(draw, 10);
+function startGame() {
+    setInterval(draw, 10);
+}
+
+startButton.addEventListener('click', () => {
+    startGame();
+    startButton.disabled = true;
+});
