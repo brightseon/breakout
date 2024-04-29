@@ -1,3 +1,6 @@
+const RIGHT_KEYS = ['ArrowRight', 'Right'];
+const LEFT_KEYS = ['ArrowLeft', 'Left'];
+
 const canvas = document.getElementById('canvas');
 const startButton = document.getElementById('start');
 const ctx = canvas.getContext('2d');
@@ -10,6 +13,8 @@ let x = canvas.width / 2;
 let y = canvas.height - 30;
 let dx = 2;
 let dy = -2;
+let rightPressed = false;
+let leftPressed = false;
 
 function drawPaddle() {
     ctx.beginPath();
@@ -40,6 +45,14 @@ function draw() {
         dy = -dy;
     }
 
+    if (rightPressed) {
+        paddleX = Math.min(canvas.width - paddleWidth, paddleX + 7);
+    }
+
+    if (leftPressed) {
+        paddleX = Math.max(0, paddleX - 7);
+    }
+
     x += dx;
     y += dy;
 }
@@ -51,4 +64,24 @@ function startGame() {
 startButton.addEventListener('click', () => {
     startGame();
     startButton.disabled = true;
+});
+
+document.addEventListener('keydown', (e) => {
+    if (RIGHT_KEYS.includes(e.key)) {
+        rightPressed = true;
+    }
+
+    if (LEFT_KEYS.includes(e.key)) {
+        leftPressed = true;
+    }
+});
+
+document.addEventListener('keyup', (e) => {
+    if (RIGHT_KEYS.includes(e.key)) {
+        rightPressed = false;
+    }
+
+    if (LEFT_KEYS.includes(e.key)) {
+        leftPressed = false;
+    }
 });
