@@ -1,5 +1,6 @@
 const RIGHT_KEYS = ['ArrowRight', 'Right'];
 const LEFT_KEYS = ['ArrowLeft', 'Left'];
+const PADDLE_STEP = 7;
 
 const canvas = document.getElementById('canvas');
 const startButton = document.getElementById('start');
@@ -46,11 +47,11 @@ function draw() {
     }
 
     if (rightPressed) {
-        paddleX = Math.min(canvas.width - paddleWidth, paddleX + 7);
+        paddleX = Math.min(canvas.width - paddleWidth, paddleX + PADDLE_STEP);
     }
 
     if (leftPressed) {
-        paddleX = Math.max(0, paddleX - 7);
+        paddleX = Math.max(0, paddleX - PADDLE_STEP);
     }
 
     x += dx;
