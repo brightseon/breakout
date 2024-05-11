@@ -16,6 +16,7 @@ const brickHeight = 20;
 const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
+const bricks = [];
 
 let paddleX = (canvas.width - paddleWidth) / 2;
 let x = canvas.width / 2;
@@ -25,6 +26,13 @@ let dy = -2;
 let rightPressed = false;
 let leftPressed = false;
 let interval;
+
+for (let r = 0; r < brickRowCount; r++) {
+    bricks[r] = [];
+    for (let c = 0; c < brickColumnCount; c++) {
+        bricks[r][c] = { x: 0, y: 0, status: 1 };
+    }
+}
 
 function drawPaddle() {
     ctx.beginPath();
