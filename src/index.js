@@ -53,8 +53,13 @@ function drawBall() {
 function drawBricks() {
     for (let r = 0; r < brickRowCount; r++) {
         for (let c = 0; c < brickColumnCount; c++) {
+            const brick = bricks[r][c];
+
             const brickX = brickOffsetLeft + (brickWidth + brickPadding) * c;
             const brickY = brickOffsetTop + (brickHeight + brickPadding) * r;
+
+            brick.x = brickX;
+            brick.y = brickY;
 
             ctx.beginPath();
             ctx.rect(brickX, brickY, brickWidth, brickHeight);
@@ -65,9 +70,29 @@ function drawBricks() {
     }
 }
 
+function collisionDetection() {
+    for (let r = 0; r < brickRowCount; r++) {
+        for (let c = 0; c < brickColumnCount; c++) {
+            const brick = bricks[r][c];
+
+            if (brick.status === 1) {
+                if (
+                    brick.x + ballRadius < x &&
+                    x < brick.x + brickWidth + ballRadius &&
+                    brick.y + ballRadius < y &&
+                    y < brick.y + brickHeight + ballRadius
+                ) {
+                    dy = -dy;
+                }
+            }
+        }
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPaddle();
+    collisionDetection();
     drawBricks();
     drawBall();
 
