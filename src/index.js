@@ -87,6 +87,7 @@ function collisionDetection() {
                 ) {
                     brick.status = 0;
                     dy = -dy;
+                    score += 1;
                 }
             }
         }
