@@ -1,6 +1,7 @@
 const RIGHT_KEYS = ['ArrowRight', 'Right'];
 const LEFT_KEYS = ['ArrowLeft', 'Left'];
 const PADDLE_STEP = 7;
+const WINNING_MESSAGE = 'YOU WIN, CONGRATULATIONS!';
 
 const canvas = document.getElementById('canvas');
 const startButton = document.getElementById('start');
@@ -9,8 +10,10 @@ const ctx = canvas.getContext('2d');
 const ballRadius = 10;
 const paddleWidth = 75;
 const paddleHeight = 10;
-const brickRowCount = 3;
-const brickColumnCount = 5;
+// const brickRowCount = 3;
+// const brickColumnCount = 5;
+const brickRowCount = 1;
+const brickColumnCount = 3;
 const brickWidth = 75;
 const brickHeight = 20;
 const brickPadding = 10;
@@ -88,6 +91,12 @@ function collisionDetection() {
                     brick.status = 0;
                     dy = -dy;
                     score += 1;
+
+                    if (score === brickRowCount * brickColumnCount) {
+                        alert(WINNING_MESSAGE);
+                        document.location.reload;
+                        clearInterval(interval);
+                    }
                 }
             }
         }
