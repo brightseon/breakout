@@ -10,10 +10,8 @@ const ctx = canvas.getContext('2d');
 const ballRadius = 10;
 const paddleWidth = 75;
 const paddleHeight = 10;
-// const brickRowCount = 3;
-// const brickColumnCount = 5;
-const brickRowCount = 1;
-const brickColumnCount = 3;
+const brickRowCount = 3;
+const brickColumnCount = 5;
 const brickWidth = 75;
 const brickHeight = 20;
 const brickPadding = 10;
@@ -155,6 +153,18 @@ startButton.addEventListener('click', () => {
     startButton.disabled = true;
 });
 
+function mouseMoveHandler(e) {
+    paddleX = e.clientX - canvas.offsetLeft - paddleWidth / 2;
+
+    if (paddleX < 0) {
+        paddleX = 0;
+    }
+
+    if (paddleX + paddleWidth > canvas.width) {
+        paddleX = canvas.width - paddleWidth;
+    }
+}
+
 document.addEventListener('keydown', (e) => {
     if (RIGHT_KEYS.includes(e.key)) {
         rightPressed = true;
@@ -174,3 +184,5 @@ document.addEventListener('keyup', (e) => {
         leftPressed = false;
     }
 });
+
+canvas.addEventListener('mousemove', mouseMoveHandler, false);
