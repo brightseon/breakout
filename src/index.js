@@ -155,6 +155,10 @@ startButton.addEventListener('click', () => {
 
 function mouseMoveHandler(e) {
     paddleX = e.clientX - canvas.offsetLeft;
+
+    if (paddleX + paddleWidth > canvas.width) {
+        paddleX = canvas.width - paddleWidth;
+    }
 }
 
 document.addEventListener('keydown', (e) => {
