@@ -1,6 +1,7 @@
 const RIGHT_KEYS = ['ArrowRight', 'Right'];
 const LEFT_KEYS = ['ArrowLeft', 'Left'];
 const PADDLE_STEP = 7;
+const WINNING_MESSAGE = 'YOU WIN, CONGRATULATIONS!';
 
 const canvas = document.getElementById('canvas');
 const startButton = document.getElementById('start');
