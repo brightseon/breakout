@@ -55,6 +55,8 @@ function drawBricks() {
         for (let c = 0; c < brickColumnCount; c++) {
             const brick = bricks[r][c];
 
+            if (brick.status === 0) continue;
+
             const brickX = brickOffsetLeft + (brickWidth + brickPadding) * c;
             const brickY = brickOffsetTop + (brickHeight + brickPadding) * r;
 
@@ -82,6 +84,7 @@ function collisionDetection() {
                     brick.y + ballRadius < y &&
                     y < brick.y + brickHeight + ballRadius
                 ) {
+                    brick.status = 0;
                     dy = -dy;
                 }
             }
