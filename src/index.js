@@ -154,7 +154,7 @@ startButton.addEventListener('click', () => {
 });
 
 function mouseMoveHandler(e) {
-    paddleX = e.clientX - canvas.offsetLeft;
+    paddleX = e.clientX - canvas.offsetLeft - paddleWidth / 2;
 
     if (paddleX + paddleWidth > canvas.width) {
         paddleX = canvas.width - paddleWidth;
