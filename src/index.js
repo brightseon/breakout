@@ -16,6 +16,7 @@ const brickHeight = 20;
 const brickPadding = 10;
 const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
+const bricks = [];
 
 let paddleX = (canvas.width - paddleWidth) / 2;
 let x = canvas.width / 2;
@@ -25,6 +26,13 @@ let dy = -2;
 let rightPressed = false;
 let leftPressed = false;
 let interval;
+
+for (let r = 0; r < brickRowCount; r++) {
+    bricks[r] = [];
+    for (let c = 0; c < brickColumnCount; c++) {
+        bricks[r][c] = { x: 0, y: 0, status: 1 };
+    }
+}
 
 function drawPaddle() {
     ctx.beginPath();
@@ -45,8 +53,15 @@ function drawBall() {
 function drawBricks() {
     for (let r = 0; r < brickRowCount; r++) {
         for (let c = 0; c < brickColumnCount; c++) {
+            const brick = bricks[r][c];
+
+            if (brick.status === 0) continue;
+
             const brickX = brickOffsetLeft + (brickWidth + brickPadding) * c;
             const brickY = brickOffsetTop + (brickHeight + brickPadding) * r;
+
+            brick.x = brickX;
+            brick.y = brickY;
 
             ctx.beginPath();
             ctx.rect(brickX, brickY, brickWidth, brickHeight);
@@ -57,9 +72,30 @@ function drawBricks() {
     }
 }
 
+function collisionDetection() {
+    for (let r = 0; r < brickRowCount; r++) {
+        for (let c = 0; c < brickColumnCount; c++) {
+            const brick = bricks[r][c];
+
+            if (brick.status === 1) {
+                if (
+                    brick.x + ballRadius < x &&
+                    x < brick.x + brickWidth + ballRadius &&
+                    brick.y + ballRadius < y &&
+                    y < brick.y + brickHeight + ballRadius
+                ) {
+                    brick.status = 0;
+                    dy = -dy;
+                }
+            }
+        }
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPaddle();
+    collisionDetection();
     drawBricks();
     drawBall();
 
