@@ -18,6 +18,7 @@ const brickOffsetTop = 30;
 const brickOffsetLeft = 30;
 const bricks = [];
 
+let score = 0;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
@@ -86,14 +87,22 @@ function collisionDetection() {
                 ) {
                     brick.status = 0;
                     dy = -dy;
+                    score += 1;
                 }
             }
         }
     }
 }
 
+function drawScore() {
+    ctx.font = '16px Arial';
+    ctx.fillStyle = '#0095DD';
+    ctx.fillText(`Score: ${score}`, 8, 20);
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawScore();
     drawPaddle();
     collisionDetection();
     drawBricks();
