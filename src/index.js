@@ -9,6 +9,14 @@ const ctx = canvas.getContext('2d');
 const ballRadius = 10;
 const paddleWidth = 75;
 const paddleHeight = 10;
+const brickRowCount = 3;
+const brickColumnCount = 5;
+const brickWidth = 75;
+const brickHeight = 20;
+const brickPadding = 10;
+const brickOffsetTop = 30;
+const brickOffsetLeft = 30;
+
 let paddleX = (canvas.width - paddleWidth) / 2;
 let x = canvas.width / 2;
 let y = canvas.height - 30;
@@ -34,9 +42,25 @@ function drawBall() {
     ctx.closePath();
 }
 
+function drawBricks() {
+    for (let r = 0; r < brickRowCount; r++) {
+        for (let c = 0; c < brickColumnCount; c++) {
+            const brickX = brickOffsetLeft + (brickWidth + brickPadding) * c;
+            const brickY = brickOffsetTop + (brickHeight + brickPadding) * r;
+
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, brickWidth, brickHeight);
+            ctx.fillStyle = '#0095DD';
+            ctx.fill();
+            ctx.closePath();
+        }
+    }
+}
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawPaddle();
+    drawBricks();
     drawBall();
 
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
