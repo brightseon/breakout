@@ -153,6 +153,10 @@ startButton.addEventListener('click', () => {
     startButton.disabled = true;
 });
 
+function mouseMoveHandler(e) {
+    paddleX = e.clientX - canvas.offsetLeft;
+}
+
 document.addEventListener('keydown', (e) => {
     if (RIGHT_KEYS.includes(e.key)) {
         rightPressed = true;
@@ -172,3 +176,5 @@ document.addEventListener('keyup', (e) => {
         leftPressed = false;
     }
 });
+
+canvas.addEventListener('mousemove', mouseMoveHandler, false);
